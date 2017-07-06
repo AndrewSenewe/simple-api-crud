@@ -27,7 +27,7 @@ var updateRest = function(req, res) {
   rest.findById(req.params.id, (err, data) => {
     res.update({_id: req.params.id},{
       $set: {
-        name: req.params.name || data.name
+        name: req.body.name || data.name
       }
     }, (err) => {
       if (err) {
@@ -41,7 +41,7 @@ var updateRest = function(req, res) {
 
 var deleteRest = function (req, rest) {
   rest.remove({
-    id: ObjectId(req.params.id)
+    _id: ObjectId(req.params.id)
   }, (err) => {
     if (err) {
       res.send(err)

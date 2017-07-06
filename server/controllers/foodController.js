@@ -25,9 +25,9 @@ var createFood = function(req, res) {
 
 var updateFood = function(req, res) {
   food.findById(req.params.id, (err, data) => {
-    res.update({_id: req.params.id},{
+    res.update({_id: ObjectId(req.params.id)},{
       $set: {
-        name: req.params.name || data.name
+        name: req.body.name || data.name
       }
     }, (err) => {
       if (err) {
@@ -39,9 +39,9 @@ var updateFood = function(req, res) {
   })
 }
 
-var deleteFood = function (req, food) {
+var deleteFood = function (req, res) {
   food.remove({
-    id: ObjectId(req.params.id)
+    _id: ObjectId(req.params.id)
   }, (err) => {
     if (err) {
       res.send(err)
