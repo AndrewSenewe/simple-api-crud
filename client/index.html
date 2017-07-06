@@ -21,11 +21,18 @@
         <div id="app-food" class="col-md-4 col-md-offset-1">
           <div class="form">
             <form class="" >
-              <input type="text" name="name" placeholder="name" v-model="input.name">
+              <input type="text" name="name" placeholder="food name" v-model="input.name">
+              <button>Add</button>
             </form>
           </div>
         </div>
         <div id="app-rest" class="col-md-4 col-md-offset-2">
+          <div class="form">
+            <form class="" >
+              <input type="text" name="name" placeholder="restaurant name" v-model="input.name">
+              <button>Add</button>
+            </form>
+          </div>
 
         </div>
 
@@ -47,6 +54,45 @@
         foods: [],
         input: {
           name: ''
+        }
+      },
+      methods: {
+        submission: () => {
+          axios.post(`http://localhost:3000/foods`, {
+            name : appfood.input.name
+          })
+          .then(
+            appfood.input.name = '';
+            window.loction.href = '/index.html'
+          )
+        }
+      }
+    });
+
+    var apprest = new Vue({
+      el: '#app-rest',
+      created: function() {
+        this_app = this
+        axios.get('http://localhost:3000/restaurants')
+        .then((res) => {
+          apprest.rests = res.data
+        })
+      },
+      data: {
+        rests: [],
+        input: {
+          name: ''
+        }
+      },
+      methods: {
+        submission: () => {
+          axios.post(`http://localhost:3000/restaurants`, {
+            name : apprest.input.name
+          })
+          .then(
+            apprest.input.name = '';
+            window.loction.href = '/index.html'
+          )
         }
       }
     })
